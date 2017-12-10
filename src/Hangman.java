@@ -1,14 +1,18 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Hangman {
 
 	private String word;
 	private ArrayList<Character> guessed;
-	private static char[] display;
+	private char[] display;
+	private int wrongGuesses = 4;
+	
+	private Scanner input = new Scanner(System.in);
 	
 	public Hangman(final String word) {
-		this.word = word;
+		this.word = word.toUpperCase();
 		guessed = new ArrayList<Character>();
 		display = new char[word.length()];
 		Arrays.fill(display, '_');
@@ -18,33 +22,94 @@ public class Hangman {
 		//random word
 	}
 	
-	public static void play() {
-		System.out.println("asdasd");
+	public void play() {
+		while (!isWinner()) {
+			draw();
+			guess();
+		}
 	}
 	
 	// Prompt the user for letter. Keep prompting until user inputs single letter
-	public void guess() {
-		String inp = input.next();
+	private void guess() {
+		System.out.print("Guess a letter: ");
+		String inp = input.nextLine();
 		if (inp.length() == 1 && Character.isLetter(inp.charAt(0))) {
-			char guess = inp.charAt(0);
+			char guess = inp.toUpperCase().charAt(0);
+			boolean correct = false;
 			for (int index = 0; index < word.length(); index++) {
 				if (word.charAt(index) == guess) {
 					display[index] = guess;
-					guessed.add(guess);
-				} else {
-					guessed.add(guess);
-					wrongGuesses -= 1;
+					correct = true;
 				}
+			}
+			guessed.add(guess);
+			if (!correct) {
+				wrongGuesses--;
 			}
 		} else {
 			System.out.print("Invalid guess. Try again.");
 			guess();
-		}		
+		}
 	}
 	
 	// Draw the hangman based on how many guesses player took
-	public void draw() {
-		
+	private void draw() {
+		System.out.print("Guessed letters: ");
+		for (int letter = 0; letter < guessed.size(); letter++) {
+			System.out.print(guessed.get(letter) + " ");
+		}
+		System.out.println();
+		switch (wrongGuesses) {
+			case 4:
+				System.out.println("_______");
+				System.out.println("|/    |");
+				System.out.println("|");
+				System.out.println("|");
+				System.out.println("|");
+				System.out.println("|");
+				System.out.println("|_________");
+				break;
+			case 3:
+				System.out.println("_______");
+				System.out.println("|/    |");
+				System.out.println("|   (\'-\')");
+				System.out.println("|");
+				System.out.println("|");
+				System.out.println("|");
+				System.out.println("|_________");
+				break;
+			case 2:
+				System.out.println("_______");
+				System.out.println("|/    |");
+				System.out.println("|   (\'-\')");
+				System.out.println("|     |");
+				System.out.println("|     |");
+				System.out.println("|");
+				System.out.println("|_________");
+				break;
+			case 1:
+				System.out.println("_______");
+				System.out.println("|/    |");
+				System.out.println("|   (\'-\')");
+				System.out.println("|   __|__");
+				System.out.println("|     |");
+				System.out.println("|");
+				System.out.println("|_________");
+				break;
+			default:
+				System.out.println("_______");
+				System.out.println("|/    |");
+				System.out.println("|   (x-x)");
+				System.out.println("|   __|__");
+				System.out.println("|     |");
+				System.out.println("|    / \\");
+				System.out.println("|_________");
+				break;
+		}
+		for (int i = 0; i < display.length; i++) {
+			System.out.print(display[i] + " ");
+		}
+		System.out.println();
 	}
 	
 	// Checks if player successfully guessed word
