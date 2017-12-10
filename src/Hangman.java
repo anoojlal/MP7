@@ -19,7 +19,22 @@ public class Hangman {
 	}
 	
 	public static void play() {
-		System.out.println(display);
+		System.out.println("asdasd");
+	}
+	
+	// Prompt the user for letter. Keep prompting until user inputs single letter
+	public void guess() {
+		
+	}
+	
+	// Draw the hangman based on how many guesses player took
+	public void draw() {
+		
+	}
+	
+	// Checks if player successfully guessed word
+	public boolean isWinner() {
+		return false;
 	}
 	
 }
