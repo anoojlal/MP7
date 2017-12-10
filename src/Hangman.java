@@ -32,8 +32,11 @@ public class Hangman {
 	// Prompt the user for letter. Keep prompting until user inputs single letter
 	private void guess() {
 		System.out.print("Guess a letter: ");
-		String inp = input.nextLine();
-		if (inp.length() == 1 && Character.isLetter(inp.charAt(0))) {
+		String inp = input.nextLine().toUpperCase();
+		if (inp.length() == 1 && guessed.contains(inp.charAt(0))) {
+			System.out.println("Already guessed " + inp.charAt(0) + ". Try again.");
+			guess();
+		} else if (inp.length() == 1 && Character.isLetter(inp.charAt(0))) {
 			char guess = inp.toUpperCase().charAt(0);
 			boolean correct = false;
 			for (int index = 0; index < word.length(); index++) {
