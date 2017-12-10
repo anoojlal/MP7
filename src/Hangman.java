@@ -24,7 +24,22 @@ public class Hangman {
 	
 	// Prompt the user for letter. Keep prompting until user inputs single letter
 	public void guess() {
-		
+		String inp = input.next();
+		if (inp.length() == 1 && Character.isLetter(inp.charAt(0))) {
+			char guess = inp.charAt(0);
+			for (int index = 0; index < word.length(); index++) {
+				if (word.charAt(index) == guess) {
+					display[index] = guess;
+					guessed.add(guess);
+				} else {
+					guessed.add(guess);
+					wrongGuesses -= 1;
+				}
+			}
+		} else {
+			System.out.print("Invalid guess. Try again.");
+			guess();
+		}		
 	}
 	
 	// Draw the hangman based on how many guesses player took
