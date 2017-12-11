@@ -48,7 +48,7 @@ public class Hangman {
 		Random rand = new Random();
 		
 		
-		 this.word = arr.get(rand.nextInt(370099)).toUpperCase();
+		 this.word = arr.get(rand.nextInt(370098)).toUpperCase();
 		 guessed = new ArrayList<Character>();
 		 display = new char[word.length()];
 		 Arrays.fill(display, '_');
@@ -82,7 +82,7 @@ public class Hangman {
 				wrongGuesses--;
 			}
 		} else {
-			System.out.print("Invalid guess. Try again.");
+			System.out.print("Invalid guess. Try again.\n");
 			guess();
 		}
 	}
