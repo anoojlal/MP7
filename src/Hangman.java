@@ -1,5 +1,10 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Hangman {
@@ -20,6 +25,33 @@ public class Hangman {
 	
 	public Hangman() {
 		//random word
+
+        ArrayList<String> arr = new ArrayList<String>();
+        BufferedReader br;
+		try {
+			br = new BufferedReader(new FileReader("words.txt"));
+			
+            String sCurrentLine;
+
+            while ((sCurrentLine = br.readLine()) != null) {
+                arr.add(sCurrentLine);
+            }
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+		Random rand = new Random();
+		
+		
+		 this.word = arr.get(rand.nextInt(370099)).toUpperCase();
+		 guessed = new ArrayList<Character>();
+		 display = new char[word.length()];
+		 Arrays.fill(display, '_');
 	}
 	
 	public void play() {
